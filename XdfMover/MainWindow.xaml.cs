@@ -212,6 +212,39 @@ namespace XdfMover
                 }
             }
 
+            foreach (XElement element in doc.Elements("XDFFORMAT").Elements("XDFTABLE").Elements("XDFAXIS"))
+            {
+                if (element.Element("EMBEDDEDDATA").Attribute("mmedaddress") != null)
+                {
+                    int addr = Convert.ToInt32(element.Element("EMBEDDEDDATA").Attribute("mmedaddress").Value.Trim(), 16);
+                    if (Is_Addr_In_Range(addr))
+                    {
+                        textBox1.AppendText(element.Parent.Element("title").Value.ToString() + Environment.NewLine);
+                        converted++;
+                        textBox1.AppendText("\t" + addr.ToString("X5") + " => ");
+                        addr += offset;
+                        textBox1.AppendText(addr.ToString("X5") + Environment.NewLine);
+                        element.Element("EMBEDDEDDATA").Attribute("mmedaddress").Value = "0x" + addr.ToString("X");
+                    }
+
+                    // Check for addresses used in math calculations
+                    foreach (XElement el in element.Elements("MATH"))
+                    {
+                        if (el.Element("VAR").Attribute("address") != null)
+                        {
+                            if (Is_Addr_In_Range(addr))
+                            {
+                                converted++;
+                                textBox1.AppendText("\t" + addr.ToString("X5") + " => ");
+                                addr += offset;
+                                textBox1.AppendText(addr.ToString("X5") + Environment.NewLine);
+                                el.Element("VAR").Attribute("address").Value = "0x" + addr.ToString("X");
+                            }
+                        }
+                    }
+                }
+            }
+
             foreach (XElement element in doc.Elements("XDFFORMAT").Elements("XDFFLAG"))
             {
                 if (element.Element("EMBEDDEDDATA").Attribute("mmedaddress") != null)
