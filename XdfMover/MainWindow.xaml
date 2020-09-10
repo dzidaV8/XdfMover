@@ -33,7 +33,7 @@
             </TextBox.Background>
         </TextBox>
         <TextBlock Margin="0,0,0,365" Grid.ColumnSpan="2" Text="Moves XDF file entries from start to end address range by specified offset."/>
-        <TextBlock Margin="10,360,632,10" Grid.ColumnSpan="2" ><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://github.com/dzidaV8/Xdf_Mover">Project GitHub page</Hyperlink></TextBlock>
+        <TextBlock Margin="10,360,632,10" Grid.ColumnSpan="2" ><Hyperlink RequestNavigate="Hyperlink_RequestNavigate" NavigateUri="https://github.com/dzidaV8/XdfMover">Project GitHub page</Hyperlink></TextBlock>
 
     </Grid>
 </Window>
